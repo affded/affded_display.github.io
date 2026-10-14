@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Image Display</title>
+<style>
+  /* On the Ray-Ban Display, black pixels are transparent, so keep the background pure black. */
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+  }
+  .stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;   /* use "cover" to fill the whole screen instead */
+    display: block;
+  }
+  .error {
+    color: #fff;
+    font: 24px/1.4 system-ui, sans-serif;
+    text-align: center;
+    padding: 24px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <img id="pic" alt="">
+    <p class="error" id="err">Image not found.<br>Put your picture next to this file as <b>image.jpg</b>.</p>
+  </div>
+
+<script>
+  // 1) Change this to your image's filename or full URL.
+  var IMAGE_SRC = "duck.png";
+
+  // 2) Optional: override with a URL parameter, e.g. index.html?img=https://example.com/photo.png
+  var override = new URLSearchParams(location.search).get("img");
+
+  var pic = document.getElementById("pic");
+  var err = document.getElementById("err");
+
+  pic.onerror = function () {
+    pic.style.display = "none";
+    err.style.display = "block";
+  };
+  pic.src = override || IMAGE_SRC;
+</script>
+</body>
+</html>
